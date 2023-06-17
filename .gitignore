@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.parcel-cache/
+coverage/
+express-dorrent-*.tgz
+dorrent/
+values.toml
+express-dorrent.nginx.conf

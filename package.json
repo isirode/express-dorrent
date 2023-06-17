@@ -1,0 +1,38 @@
+{
+  "name": "express-dorrent",
+  "version": "1.0.0",
+  "description": "This server serve static and dorrent files",
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "dist/app.js",
+  "type": "module",
+  "scripts": {
+    "doInstall": "npm install",
+    "prestart": "enviro && rimraf dorrent",
+    "start": "ts-node-esm ./src/app.ts",
+    "start-not-working": "ts-node-dev ./src/app.ts",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "test": "jest --config jest.config.js",
+    "deploy": "bash deployment-cli.sh -s deploy.groovy -v values.toml -a build=true -a push=true -a startPod=true"
+  },
+  "devDependencies": {
+    "@types/create-torrent": "5.0.0",
+    "@types/express": "4.17.17",
+    "@types/jest": "29.4.0",
+    "@types/node": "20.1.4",
+    "@types/parse-torrent": "5.8.4",
+    "jest": "29.4.2",
+    "rimraf": "4.1.3",
+    "ts-jest": "29.0.5",
+    "ts-mockito": "2.6.1",
+    "ts-node-dev": "2.0.0",
+    "typescript": "5.0.4"
+  },
+  "dependencies": {
+    "create-torrent": "6.0.11",
+    "dotenv": "16.2.0",
+    "express": "4.18.2",
+    "node-fetch": "3.3.1",
+    "parse-torrent": "11.0.12"
+  }
+}
