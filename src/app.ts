@@ -3,6 +3,7 @@ import createTorrent from 'create-torrent';
 import parseTorrent from 'parse-torrent';
 import fs from 'fs';
 import path from 'path';
+import cors from 'cors';
 
 const app: Application = express();
 const port = 5100;
@@ -11,6 +12,7 @@ const fileDir = 'public';
 const extension = '.dorrent';
 const torrentDir = 'dorrent';
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(`/${fileDir}`, express.static(fileDir));
@@ -19,10 +21,15 @@ app.use(`/${torrentDir}`, express.static(torrentDir));
 // console.log(__dirname);// __dirname is not defined in ES module scope
 // console.log(process.cwd());
 
-app.get(`/${torrentDir}/:filename${extension}`, (req, res) => {
-  console.log('fetching torrent');
-  console.log(req.params.filename);
-  const filename = req.params.filename;
+// Info : :filename([A-Za-z0-9_]+) is not working for a reason
+app.get(`/${torrentDir}/:filename([^:]+)${extension}`, (req, res) => {
+  console.debug('fetching torrent');
+  console.debug(req.params.filename);
+  // TODO : I rather know if an invalid filename is passed
+  // Info : express is resolving by normalizing the path as well
+  // So something containing .. will pass by the static handler first
+  const filename = path.normalize(req.params.filename);
+  console.debug(filename);
   createTorrent(`./${fileDir}/${filename}`, {
     announceList: [
       ["nothing"]

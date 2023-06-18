@@ -70,3 +70,5 @@ You can add the argument `--log-level=debug` to the Podman commands if there is 
   - It would need a volume, but I've encoutered problems in the past when using volumes with Podman
   - I would need to upgrade it
   - And the documentation is lacking
+
+- Use the log4j2-typescript logging system
